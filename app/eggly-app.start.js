@@ -23,7 +23,7 @@ angular.module('Eggly', [])
     $scope.currentCategory = null;
     $scope.isCreating = false;
     $scope.isEditing = false;
-
+    $scope.editedBookmark = null;
 
     function setCurrentCategory(category){
         $scope.currentCategory = category;
@@ -62,6 +62,9 @@ angular.module('Eggly', [])
         return $scope.isEditing && !$scope.isCreating;
     }
 
+    function setEditedBookmark(bookmark){
+        $scope.editedBookmark = bookmark;
+    }
 
     //----------------------- CRUD -----------------------
 
@@ -81,6 +84,8 @@ angular.module('Eggly', [])
 
 
 
+
+
     $scope.setCurrentCategory = setCurrentCategory; //this line let the setCurrentCategory function will be available to the view (public)
     $scope.isCurrentCategory = isCurrentCategory;
     $scope.cancelEditing = cancelEditing;
@@ -90,6 +95,8 @@ angular.module('Eggly', [])
     $scope.shouldShowEditing = shouldShowEditing;
     $scope.shouldShowCreating = shouldShowCreating;
     $scope.createBookmark = createBookmark;
+
+    $scope.setEditedBookmark = setEditedBookmark;
 
 
 });

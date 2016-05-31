@@ -25,7 +25,7 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <div ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
                         <button type="button" class="close">&times;</button>
-                        <button ng-click="startEditing()" type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button ng-click="setEditedBookmark(bookmark);startEditing()" type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
                         <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
                     </div>
                     <hr/>
@@ -53,20 +53,29 @@
                         </div>
                     </div>
                     <!-- EDITING -->
-                    <div ng-if="shouldShowEditing()">
-                        Edit a bookmark
-                        <button ng-click="cancelEditing()" type="button" class="btn btn-default btn-lg pull-right">Cancel</button>
-
+                    <div ng-show="shouldShowEditing()">
+                        <h4>Editing {{editedBookmark.title}}</h4>
+                        <form class="edit-form" role="form" ng-submit="updateBookmark(editedBookmark)" novalidate>
+                            <div class="form-group">
+                                <label>Bookmark Title</label>
+                                <input type="text" class="form-control" ng-model="editedBookmark.title" placeholder="Enter title">
+                            </div>
+                            <div class="form-group">
+                                <label>Bookmark URL</label>
+                                <input type="text" class="form-control" ng-model="editedBookmark.url" placeholder="Enter URL">
+                            </div>
+                            <button type="submit" class="btn btn-info btn-lg">Save</button>
+                            <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelEditing()">Cancel</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
         <script src="app/eggly-app.start.js"></script>
 
     </body>
