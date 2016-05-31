@@ -13,37 +13,42 @@
     </head>
     <body ng-controller="MainCtrl">
         <div class="container-fluid">
-            <div class="row">
+            < class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <a href="#"><img class="logo" src="assets/img/eggly-logo.png"></a>
+                    <a href="#"><img class="logo" ng-click="setCurrentCategory(null)" src="assets/img/eggly-logo.png"></a>
                     <ul class="nav nav-sidebar">
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Category</a></li>
+                        <li ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category)}">
+                            <a href="" ng-click="setCurrentCategory(category)">{{category.name}}</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <div ng-init="hello='world'">
-                        <h1>{{hello}}</h1>
-                        <h2>{{helloController}} </h2>
-                        <input type="text" ng-model="hello">
+                    <div ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
                         <button type="button" class="close">&times;</button>
-                        <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <a href="#" target="_blank">Bookmark</a>
-                    </div>
-                    <div>
-                        <button type="button" class="close">&times;</button>
-                        <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <a href="#" target="_blank">Bookmark</a>
-                    </div>
-                    <div>
-                        <button type="button" class="close">&times;</button>
-                        <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <a href="#" target="_blank">Bookmark</a>
+                        <button ng-click="startEditing()" type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
                     </div>
                     <hr/>
+                    <!-- CREATING -->
+                    <div ng-if="shouldShowCreating()">
+                        <button ng-click="startCreating()" type="button" class="btn btn-link">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Create Bookmark
+                        </button>
+                        <div ng-if="isCreating">
+                            Create a bookmark!
+                            <button ng-click="cancelCreating()" type="button" class="btn btn-default btn-lg pull-right">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- EDITING -->
+                    <div ng-if="shouldShowEditing()">
+                        Edit a bookmark
+                        <button ng-click="cancelEditing()" type="button" class="btn btn-default btn-lg pull-right">Cancel</button>
+
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
