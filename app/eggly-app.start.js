@@ -63,7 +63,11 @@ angular.module('Eggly', [])
     }
 
     function setEditedBookmark(bookmark){
-        $scope.editedBookmark = bookmark;
+        $scope.editedBookmark = angular.copy(bookmark);
+    }
+
+    function isSelectedBookmark(bookmarkId){
+        return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkId;
     }
 
     //----------------------- CRUD -----------------------
@@ -82,6 +86,15 @@ angular.module('Eggly', [])
         }
     }
 
+    function updateBookmark(bookmark){
+        var index = _.findIndex($scope.bookmarks, function(b){
+            return b.id === bookmark.id;
+        });
+        $scope.bookmarks[index] = bookmark;
+        $scope.editedBookmark = null;
+        $scope.isEditing = false;
+    }
+
 
 
 
@@ -95,8 +108,9 @@ angular.module('Eggly', [])
     $scope.shouldShowEditing = shouldShowEditing;
     $scope.shouldShowCreating = shouldShowCreating;
     $scope.createBookmark = createBookmark;
-
     $scope.setEditedBookmark = setEditedBookmark;
+    $scope.updateBookmark = updateBookmark;
+    $scope.isSelectedBookmark = isSelectedBookmark;
 
 
 });
