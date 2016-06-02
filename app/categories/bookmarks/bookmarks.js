@@ -17,9 +17,10 @@ angular.module('categories.bookmarks', [
             })
         ;
     })
-    .controller('BookmarksListCtrl', function ($stateParams  ) {
+    .controller('BookmarksListCtrl', function ($stateParams, BookmarksModel ) {
         var bookmarksListCtrl = this;
         bookmarksListCtrl.currentCategoryName = $stateParams.category;
+        bookmarksListCtrl.bookmarks = BookmarksModel.getBookmarks();
     })
 ;
 
