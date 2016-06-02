@@ -6,14 +6,16 @@ angular.module('Eggly', [
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('eggly', {
-                abstract: true,
-                url: '' // Make to navigate to index.html#/
+                url: '',
+                abstract: true
             })
         ;
+
         $urlRouterProvider.otherwise('/');
     })
-    .controller('MainCtrl', function () {
+    .controller('MainCtrl', function ($state) {
         var main = this;
+
         main.categories = [
             {"id": 0, "name": "Development"},
             {"id": 1, "name": "Design"},
@@ -22,15 +24,15 @@ angular.module('Eggly', [
         ];
 
         main.bookmarks = [
-            {"id": 0, "title": "AngularJS", "url": "http://angularjs.org", "category": "Development" },
-            {"id": 1, "title": "Egghead.io", "url": "http://angularjs.org", "category": "Development" },
-            {"id": 2, "title": "A List Apart", "url": "http://alistapart.com/", "category": "Design" },
-            {"id": 3, "title": "One Page Love", "url": "http://onepagelove.com/", "category": "Design" },
-            {"id": 4, "title": "MobilityW OD", "url": "http://www.mobilitywod.com/", "category": "Exercise" },
-            {"id": 5, "title": "Robb Wolf", "url": "http://robbwolf.com/", "category": "Exercise" },
-            {"id": 6, "title": "Senor Gif", "url": "http://memebase.cheezburger.com/senorgif", "category": "Humor" },
-            {"id": 7, "title": "Wimp", "url": "http://wimp.com", "category": "Humor" },
-            {"id": 8, "title": "Dump", "url": "http://dump.com", "category": "Humor" }
+            {"id": 0, "title": "AngularJS", "url": "http://angularjs.org", "category": "Development"},
+            {"id": 1, "title": "Egghead.io", "url": "http://angularjs.org", "category": "Development"},
+            {"id": 2, "title": "A List Apart", "url": "http://alistapart.com/", "category": "Design"},
+            {"id": 3, "title": "One Page Love", "url": "http://onepagelove.com/", "category": "Design"},
+            {"id": 4, "title": "MobilityWOD", "url": "http://www.mobilitywod.com/", "category": "Exercise"},
+            {"id": 5, "title": "Robb Wolf", "url": "http://robbwolf.com/", "category": "Exercise"},
+            {"id": 6, "title": "Senor Gif", "url": "http://memebase.cheezburger.com/senorgif", "category": "Humor"},
+            {"id": 7, "title": "Wimp", "url": "http://wimp.com", "category": "Humor"},
+            {"id": 8, "title": "Dump", "url": "http://dump.com", "category": "Humor"}
         ];
 
         main.isCreating = false;
@@ -44,6 +46,8 @@ angular.module('Eggly', [
 
         function setCurrentCategory(category) {
             main.currentCategory = category;
+
+            // $state.go('eggly.categories.bookmarks', {category:category.name});
 
             cancelCreating();
             cancelEditing();

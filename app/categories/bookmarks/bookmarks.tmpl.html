@@ -1,3 +1,5 @@
+
+<h1>{{currentCategoryName}}</h1>
 <div ng-class="{active: main.isSelectedBookmark(bookmark.id)}"  ng-repeat="bookmark in main.bookmarks | filter:{category:main.currentCategory.name}">
     <button type="button" class="close" ng-click="main.deleteBookmark(bookmark)">&times;</button>
     <button type="button" class="btn btn-link" ng-click="main.setEditedBookmark(bookmark);main.startEditing();" ><span class="glyphicon glyphicon-pencil"></span>
@@ -13,11 +15,11 @@
     </button>
     <form class="create-form" ng-show="main.isCreating" role="form" ng-submit="main.createBookmark(main.newBookmark)" novalidate>
         <div class="form-group">
-            <label for="newBookmarkTitle">Bookmark Title</label>
+            <label for="main.newBookmarkTitle">Bookmark Title</label>
             <input type="text" class="form-control" id="newBookmarkTitle" ng-model="main.newBookmark.title" placeholder="Enter title">
         </div>
         <div class="form-group">
-            <label for="newBookmarkURL">Bookmark URL</label>
+            <label for="main.newBookmarkURL">Bookmark URL</label>
             <input type="text" class="form-control" id="newBookmarkURL" ng-model="main.newBookmark.url" placeholder="Enter URL">
         </div>
         <button type="submit" class="btn btn-info btn-lg">Create</button>
